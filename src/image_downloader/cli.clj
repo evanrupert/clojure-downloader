@@ -1,29 +1,32 @@
 (ns image-downloader.cli
-  (:gen-class))
-
-(require '[clojure.tools.cli :refer [parse-opts]])
+  (:gen-class)
+  (:require [clojure.string :as str]
+            [clojure.tools.cli :refer [parse-opts]]))
 
 (def cli-specs [["-h" "--help" :default false]])
 
-(def parse-args
-  [cmd & args]
+(defn parse-args
+  [args]
   (let [parsed (parse-opts args cli-specs)
-        opts (:options parsed)
-        arguments (:arguments parsed)]
-    [cmd
-      (reduce (fn [acc [key val]]
-                (if val
-                  key
-                  acc))
-      nil
-      opts)
-    arguments]))
-
+        url (first (:arguments parsed))
+        options (:options parsed)]
+    {:url url :options options}))
 
 (def help-message
   "Usage:\n
   downloader [options] file
   Options:
     -h, --help \t\tShow this message
-    -o, --output \t\tSpecify an output directory to download the files to") ;; TODO: Finish implementation
+    -o, --output \t\tSpecify an output directory to download the files to")
 
+(defn raise-error
+  [err]
+  (println err)
+  (println help-message)
+  (System/exit 0))
+
+(defn validate-arguments
+  [args]
+  (cond
+    (str/blank? (:url args)) (raise-error "Must input url to download from")
+    :else args))
