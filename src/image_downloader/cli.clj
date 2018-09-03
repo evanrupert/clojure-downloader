@@ -5,12 +5,13 @@
 
 (def cli-specs [["-h" "--help" :default false]])
 
+;; TODO: Check for proper number of arguments
 (defn parse-args
   [args]
   (let [parsed (parse-opts args cli-specs)
-        url (first (:arguments parsed))
+        [url dest] (:arguments parsed)
         options (:options parsed)]
-    {:url url :options options}))
+    {:url url :destination dest :options options}))
 
 (def help-message
   "Usage:\n
