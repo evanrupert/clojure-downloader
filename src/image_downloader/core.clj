@@ -11,5 +11,5 @@
         :url
         http/get-html
         scraper/extract-links
-        (downloader/download-images (:destination parsed-args)))))
+        (downloader/download-images ,,, (:destination parsed-args)))))
 
