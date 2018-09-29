@@ -1,14 +1,17 @@
-# image_downloader
+# Image Downloader
 
-A Clojure library designed to ... well, that part is up to you.
+A clojure CLI tool to download all the images in a given url
 
 ## Usage
 
-FIXME
+```bash
+downloader [options] <url>
+```
 
-## License
+### Options
+| Short | Long     | Description                                          |
+|-------|----------|------------------------------------------------------|
+| -h    | --help   | Show help message                                    | 
+| -o    | --output | Specify an output directory to download the files to |
 
-Copyright © 2018 FIXME
 
-Distributed under the Eclipse Public License either version 1.0 or (at
-your option) any later version.
